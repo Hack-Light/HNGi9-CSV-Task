@@ -4,7 +4,7 @@ const { parse } = require("csv-parse");
 const { stringify } = require("csv-stringify");
 const { createHash } = require("crypto");
 
-let filename = "bevel"; // Change this to the name of your file wihout the extension
+let filename = "sample"; // Change this to the name of your file wihout the extension
 const writableStream = fs.createWriteStream(`./csv/${filename}.output.csv`);
 
 let hash = []; // This will hold the hashes of the json files
