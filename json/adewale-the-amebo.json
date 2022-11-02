@@ -1,1 +1,20 @@
-{"format":"CHIP-0007","name":"adewale-the-amebo","description":"Adewale always wants to be in everyone's business.","minting_tool":"Team x","sensitive_content":false,"series_number":"1","series_total":526,"attributes":[{"trait_type":"gender","value":"male"}],"collection":{"name":"Zuri NFT Tickets for Free Lunch","id":"b774f676-c1d5-422e-beed-00ef5510c64d","attributes":[{"type":"description","value":"Rewards for accomplishments during HNGi9."}]}}
+{
+  "format": "CHIP-0007",
+  "name": "adewale-the-amebo",
+  "description": "Adewale always wants to be in everyone's business.",
+  "minting_tool": "Team x",
+  "sensitive_content": false,
+  "series_number": "1",
+  "series_total": 526,
+  "attributes": [{ "trait_type": "gender", "value": "male" }],
+  "collection": {
+    "name": "Zuri NFT Tickets for Free Lunch",
+    "id": "b774f676-c1d5-422e-beed-00ef5510c64d",
+    "attributes": [
+      {
+        "type": "description",
+        "value": "Rewards for accomplishments during HNGi9."
+      }
+    ]
+  }
+}

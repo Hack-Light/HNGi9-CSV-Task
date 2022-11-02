@@ -5,6 +5,7 @@ const { stringify } = require("csv-stringify");
 const { createHash } = require("crypto");
 
 let filename = "sample"; // Change this to the name of your file wihout the extension
+let teamName = "X"; // Change this to your team name.
 const writableStream = fs.createWriteStream(`./csv/${filename}.output.csv`);
 
 let hash = []; // This will hold the hashes of the json files
@@ -30,9 +31,10 @@ async function handleFileCreationAndHashing() {
     // This creates the chip-0007 compliant json file
     let json = {
       format: "CHIP-0007",
+      $id:,
       name: rows[i][1],
       description: rows[i][2],
-      minting_tool: "Team x",
+      minting_tool: `Team ${teamName}`,
       sensitive_content: false,
       series_number: rows[i][0],
       series_total: 526,
