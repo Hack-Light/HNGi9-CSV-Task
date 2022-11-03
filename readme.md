@@ -1,5 +1,7 @@
 # CSV READER AND WRITER
 
+_*the code will be updated as the spreadsheet/csv file is updated*_
+
 This is a HNGi9 Project I submitted that reads a csv file, saves out each row as a json file, hashes the json files and creates a modified csv file with the new hash for each row included in the row.
 
 > **Note:** This Script works with csv files that have the following headers - [ "Series Number", "Filename", "Description", "Gender", "UUID", "Hash".
