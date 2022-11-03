@@ -4,7 +4,7 @@ const { parse } = require("csv-parse");
 const { stringify } = require("csv-stringify");
 const { createHash } = require("crypto");
 
-let filename = "sample"; // Change this to the name of your file wihout the extension
+let filename = "Team Bevel"; // Change this to the name of your file wihout the extension
 let teamName = "X"; // Change this to your team name.
 const writableStream = fs.createWriteStream(`./csv/${filename}.output.csv`);
 
@@ -14,6 +14,7 @@ let rows = []; // This will hold the data from the csv file
 fs.createReadStream(`./csv/${filename}.csv`) // This reads the csv file
   .pipe(parse({ delimiter: ",", from_line: 2 })) // This parses the csv file and skips the first line
   .on("data", async function (row) {
+    console.log(row);
     rows.push(row); // This pushes the data from the csv file into the rows array
   })
   .on("end", function () {
@@ -31,7 +32,7 @@ async function handleFileCreationAndHashing() {
     // This creates the chip-0007 compliant json file
     let json = {
       format: "CHIP-0007",
-      $id:,
+      // $id:,
       name: rows[i][1],
       description: rows[i][2],
       minting_tool: `Team ${teamName}`,
