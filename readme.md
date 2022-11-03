@@ -19,5 +19,5 @@ To add new columns, Just edit the `columns` array and add the new column in the 
 - Clone the repo
 - Change into the cloned directory
 - In your terminal run `npm install`
-- In the `main.js` file, change the filename and teamName variable to your csv file name without the extention
+- In the `main.js` file, change the `filename` and `teamName` variables to your csv file name without the extention and Team name respectively.
 - In your terminal run `node main.js`
