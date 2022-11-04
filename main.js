@@ -4,8 +4,8 @@ const { parse } = require("csv-parse");
 const { stringify } = require("csv-stringify");
 const { createHash } = require("crypto");
 
-let filename = "Team Bevel"; // Change this to the name of your file wihout the extension
-let teamName = "X"; // Change this to your team name.
+let filename = "sample"; // Change this to the name of your file wihout the extension
+let teamName;
 const writableStream = fs.createWriteStream(`./csv/${filename}.output.csv`);
 
 let hash = []; // This will hold the hashes of the json files
@@ -14,7 +14,6 @@ let rows = []; // This will hold the data from the csv file
 fs.createReadStream(`./csv/${filename}.csv`) // This reads the csv file
   .pipe(parse({ delimiter: ",", from_line: 2 })) // This parses the csv file and skips the first line
   .on("data", async function (row) {
-    console.log(row);
     rows.push(row); // This pushes the data from the csv file into the rows array
   })
   .on("end", function () {
@@ -29,20 +28,24 @@ fs.createReadStream(`./csv/${filename}.csv`) // This reads the csv file
 async function handleFileCreationAndHashing() {
   // this loops through the rows array and creates a json file for each row
   for (let i = 0; i < rows.length; i++) {
+    if (rows[i][0] != "") {
+      teamName = rows[i][0];
+    }
+
     // This creates the chip-0007 compliant json file
     let json = {
       format: "CHIP-0007",
       // $id:,
-      name: rows[i][1],
-      description: rows[i][2],
-      minting_tool: `Team ${teamName}`,
+      name: rows[i][3],
+      description: rows[i][4],
+      minting_tool: teamName,
       sensitive_content: false,
-      series_number: rows[i][0],
-      series_total: 526,
+      series_number: rows[i][1],
+      series_total: 420,
       attributes: [
         {
           trait_type: "gender",
-          value: rows[i][3],
+          value: rows[i][5],
         },
       ],
       collection: {
@@ -57,11 +60,37 @@ async function handleFileCreationAndHashing() {
       },
     };
 
+    // console.log(i, rows[i]);
+    let attributes = rows[i][6];
+
+    let attributesArray = attributes.split(";");
+
+    // this is used to check for inconsistences
+    // if (attributesArray.length < 7) {
+    //   // console.log(, rows[i]);
+    //   console.log(rows[i][1], attributesArray.length, attributesArray);
+    // }
+
+    for (let j = 0; j < attributesArray.length; j++) {
+      let arr = attributesArray[j].split(":");
+
+      // console.log(j, arr);
+
+      if (arr[0] != "") {
+        let obj = {
+          trait_type: arr[0].trim(),
+          value: arr[1] != "" ? arr[1].trim() : "",
+        };
+
+        json.attributes.push(obj);
+      }
+    }
+
     // This creates the json file
-    await fsp.writeFile(`./json/${json.name}.json`, JSON.stringify(json));
+    await fsp.writeFile(`./json/${rows[i][2]}.json`, JSON.stringify(json));
 
     // This reads the content of the json file
-    let buff = await fsp.readFile(`./json/${json.name}.json`);
+    let buff = await fsp.readFile(`./json/${rows[i][2]}.json`);
 
     // This hashes the content of the json file
     const hashed = createHash("sha256").update(buff).digest("hex");
@@ -76,10 +105,13 @@ async function handleFileCreationAndHashing() {
 function writeCSV() {
   // This defines the columns of the new csv file
   const columns = [
+    "TEAM NAMES",
     "Series Number",
     "Filename",
+    "Name",
     "Description",
     "Gender",
+    "Attributes",
     "UUID",
     "Hash",
   ];
@@ -89,8 +121,7 @@ function writeCSV() {
 
   // This writes the data of the new csv file
   for (let i = 0; i < rows.length; i++) {
-    rows[i][rows[i].length - 1] = hash[i]; // The hash column is empty, so this assigns the hash to the last column of the row
-    // rows[i].push(hash[i]);
+    rows[i].push(hash[i]); // Push the hash into the rowws array
     csv_writer.write(rows[i]);
   }
 

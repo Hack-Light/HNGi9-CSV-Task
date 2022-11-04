@@ -2,7 +2,7 @@
 
 This is a HNGi9 Project I submitted that reads a csv file, saves out each row as a json file, hashes the json files and creates a modified csv file with the new hash for each row included in the row.
 
-> **Note:** This Script works with csv files that have the following headers - [ "Series Number", "Filename", "Description", "Gender", "UUID", "Hash".
+> **Note:** This Script works with csv files that have the following headers - [ "Series Number", "Filename", "Description", "Gender", "UUID", "Hash". This could change
 
 To add new columns, Just edit the `columns` array and add the new column in the right place.
 
