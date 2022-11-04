@@ -58,6 +58,7 @@ async function handleFileCreationAndHashing() {
           },
         ],
       },
+      data: {}
     };
 
     // console.log(i, rows[i]);
