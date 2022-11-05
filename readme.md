@@ -17,5 +17,6 @@ To add new columns, Just edit the `columns` array and add the new column in the 
 - Clone the repo
 - Change into the cloned directory
 - In your terminal run `npm install`
+- Copy your csv file into the `csv/` folder
 - In the `main.js` file, change the `filename` variable to your csv file name without the extention.
 - In your terminal run `node main.js`
