@@ -35,12 +35,12 @@ async function handleFileCreationAndHashing() {
     // This creates the chip-0007 compliant json file
     let json = {
       format: "CHIP-0007",
-      // $id:,
       name: rows[i][3],
       description: rows[i][4],
       minting_tool: teamName,
       sensitive_content: false,
       series_number: rows[i][1],
+      $id:rows[i][7],
       series_total: 420,
       attributes: [
         {
@@ -66,7 +66,7 @@ async function handleFileCreationAndHashing() {
 
     let attributesArray = attributes.split(";");
 
-    // this is used to check for inconsistences
+    // this is used to help leads check for inconsistences in attributes
     // if (attributesArray.length < 7) {
     //   // console.log(, rows[i]);
     //   console.log(rows[i][1], attributesArray.length, attributesArray);
